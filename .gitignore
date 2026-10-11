@@ -1,0 +1,58 @@
+
+# ==============================
+# Java / Maven build files
+# ==============================
+**/target/
+**/build/
+
+# ==============================
+# Node.js / React / Vite
+# ==============================
+**/node_modules/
+**/dist/
+**/.vite/
+
+# ==============================
+# Environment variables / secrets
+# ==============================
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Spring Boot local configuration
+# ==============================
+**/application-local.properties
+**/application-local.yml
+**/application-local.yaml
+**/application-dev.properties
+**/application-dev.yml
+**/application-dev.yaml
+
+# ==============================
+# Python environments
+# ==============================
+**/venv/
+**/.venv/
+**/__pycache__/
+*.pyc
+
+# ==============================
+# IDE files
+# ==============================
+.idea/
+.vscode/
+*.iml
+
+# ==============================
+# Logs and temporary files
+# ==============================
+*.log
+*.tmp
+*.bak
+
+# ==============================
+# Operating system files
+# ==============================
+.DS_Store
+Thumbs.db
