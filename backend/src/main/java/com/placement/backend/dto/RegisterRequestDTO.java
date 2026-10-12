@@ -1,13 +1,18 @@
-package com.placement.backend.dto;
 
-import com.placement.backend.entity.Role;
+package com.placement.backend.dto;
 
 public class RegisterRequestDTO {
 
     private String name;
     private String email;
     private String password;
-    private Role role;
+
+    // Student profile details
+    private String rollNumber;
+    private String phone;
+    private String year;
+    private Double cgpa;
+    private Long departmentId;
 
     public RegisterRequestDTO() {
     }
@@ -36,11 +41,43 @@ public class RegisterRequestDTO {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public String getRollNumber() {
+        return rollNumber;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRollNumber(String rollNumber) {
+        this.rollNumber = rollNumber;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public Double getCgpa() {
+        return cgpa;
+    }
+
+    public void setCgpa(Double cgpa) {
+        this.cgpa = cgpa;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 }

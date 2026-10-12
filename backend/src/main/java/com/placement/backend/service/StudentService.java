@@ -1,3 +1,4 @@
+
 package com.placement.backend.service;
 
 import com.placement.backend.dto.StudentDTO;
@@ -11,6 +12,7 @@ import com.placement.backend.repository.StudentRepository;
 import com.placement.backend.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -48,7 +50,8 @@ public class StudentService {
                         new RuntimeException("User not found")
                 );
 
-        Department department = departmentRepository.findById(dto.getDepartmentId())
+        Department department = departmentRepository
+                .findById(dto.getDepartmentId())
                 .orElseThrow(() ->
                         new RuntimeException("Department not found")
                 );
@@ -57,7 +60,6 @@ public class StudentService {
 
         if (dto.getSkillIds() != null) {
             for (Long skillId : dto.getSkillIds()) {
-
                 Skill skill = skillRepository.findById(skillId)
                         .orElseThrow(() ->
                                 new RuntimeException(
@@ -78,6 +80,51 @@ public class StudentService {
         student.setUser(user);
         student.setDepartment(department);
         student.setSkills(skills);
+
+        return studentRepository.save(student);
+    }
+
+    /**
+     * Updates only the authenticated student's editable profile fields.
+     * A null phone or skillIds value leaves that field unchanged.
+     */
+    @Transactional
+    public Student updateOwnProfile(
+            Long userId,
+            String phone,
+            Set<Long> skillIds
+    ) {
+        Student student = studentRepository.findByUserId(userId)
+                .orElseThrow(() ->
+                        new RuntimeException("Student profile not found")
+                );
+
+        if (phone != null) {
+            student.setPhone(phone);
+        }
+
+        if (skillIds != null) {
+            Set<Skill> skills = new HashSet<>();
+
+            for (Long skillId : skillIds) {
+                if (skillId == null) {
+                    throw new RuntimeException(
+                            "Skill ID cannot be null"
+                    );
+                }
+
+                Skill skill = skillRepository.findById(skillId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Skill not found: " + skillId
+                                )
+                        );
+
+                skills.add(skill);
+            }
+
+            student.setSkills(skills);
+        }
 
         return studentRepository.save(student);
     }

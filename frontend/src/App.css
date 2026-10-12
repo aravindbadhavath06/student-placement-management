@@ -1,0 +1,17 @@
+/* Tailwind CSS handles the dashboard styling.
+   Keep this file for future app-specific CSS. */
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    overflow-x: hidden;
+  }
+}
