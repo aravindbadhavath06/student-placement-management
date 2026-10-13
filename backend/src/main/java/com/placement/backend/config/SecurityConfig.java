@@ -37,16 +37,27 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
+        // Allow local development and deployed Vercel frontend.
         configuration.setAllowedOrigins(
-            List.of("http://localhost:5173")
+            List.of(
+                "http://localhost:5173",
+                "https://student-placement-management-kohl.vercel.app"
+            )
         );
 
         configuration.setAllowedMethods(
-            List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+            List.of(
+                "GET", "POST", "PUT", "PATCH",
+                "DELETE", "OPTIONS"
+            )
         );
 
         configuration.setAllowedHeaders(
-            List.of("Authorization", "Content-Type", "Accept")
+            List.of(
+                "Authorization",
+                "Content-Type",
+                "Accept"
+            )
         );
 
         configuration.setAllowCredentials(false);
@@ -78,7 +89,7 @@ public class SecurityConfig {
                 // Public authentication endpoints.
                 .requestMatchers("/api/auth/**").permitAll()
 
-                // Allow anyone to load departments during registration.
+                // Public department list for student registration.
                 .requestMatchers(
                     HttpMethod.GET, "/api/departments"
                 ).permitAll()
